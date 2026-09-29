@@ -6,7 +6,9 @@ import { fileURLToPath } from 'url';
 // Simple persistent in-memory vector store. Perfect for a POC (a few books).
 // Swap this file for Chroma / pgvector / Pinecone later without touching the rest.
 const DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'data');
-const FILE = path.join(DIR, 'store.json');
+const FILE = process.env.VERCEL
+  ? path.join('/tmp', 'ai-mentor-store.json')
+  : path.join(DIR, 'store.json');
 
 let db = { documents: [], chunks: [] };
 
