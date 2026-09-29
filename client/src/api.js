@@ -1,4 +1,5 @@
 const API = import.meta.env.VITE_API_URL || '';
+const API_URL = "http://localhost:8787";
 
 async function handle(res) {
   const data = await res.json().catch(() => ({}));

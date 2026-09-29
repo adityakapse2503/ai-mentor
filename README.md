@@ -18,6 +18,12 @@ Open http://localhost:5173, upload PDF/TXT/MD files in the **Knowledge base** pa
 
 The first upload downloads the ~25 MB embedding model (one time, then it runs offline).
 
+## Deploying to Vercel
+
+Set the Vercel project's Root Directory to the repository root, then redeploy. The root `vercel.json` builds the client and exposes the Express API under `/api`.
+
+Vercel's `/tmp` document store is temporary and may reset between function instances. Use a persistent database or file store before relying on uploaded documents in production.
+
 Good test books (public domain, plain TXT from gutenberg.org): *Meditations*, *The Art of War*, *The Prince*.
 
 ## How it works

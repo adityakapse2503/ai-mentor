@@ -6,15 +6,17 @@ import { fileURLToPath } from 'url';
 // Simple persistent in-memory vector store. Perfect for a POC (a few books).
 // Swap this file for Chroma / pgvector / Pinecone later without touching the rest.
 const DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'data');
+const SEED_FILE = path.join(DIR, 'store.json');
 const FILE = process.env.VERCEL
   ? path.join('/tmp', 'ai-mentor-store.json')
-  : path.join(DIR, 'store.json');
+  : SEED_FILE;
 
 let db = { documents: [], chunks: [] };
 
-if (fs.existsSync(FILE)) {
+const LOAD_FILE = fs.existsSync(FILE) ? FILE : SEED_FILE;
+if (fs.existsSync(LOAD_FILE)) {
   try {
-    db = JSON.parse(fs.readFileSync(FILE, 'utf-8'));
+    db = JSON.parse(fs.readFileSync(LOAD_FILE, 'utf-8'));
   } catch {
     console.warn('Could not read store.json, starting empty.');
   }
